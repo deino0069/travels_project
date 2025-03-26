@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Guru Tours and Travels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .main-bg {
+      background: url("{% static 'images/bg_1.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: rgba(12, 174, 255, 0);
+      padding: 15px 50px;
+      display: flex;
+      justify-content: right;
+      margin-right: 200px;
+      margin-top: 18px;
+      align-items: center;
+    }
+
+    .nav-left ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+      gap: 25px;
+    }
+
+    .navbar ul li a {
+      color: rgb(19, 19, 19);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 15px;
+    }
+
+    .navbar ul li a:hover {
+      color: #1f6eedd8;
+      border-bottom: 2px solid #1f6eedd8;
+    }
+
+    .login-box {
+      flex: 1;
+      background-color: rgba(136, 192, 255, 0.618);
+      padding: 70px;
+      border-radius: 22px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .form-control:focus {
+      border-color: #1f6eedd8;
+      box-shadow: none;
+    }
+
+    .btn-login {
+      background-color: #156acb;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      font-weight: 600;
+      border-radius: 5px;
+    }
+
+    .btn-login:hover {
+      background: #5886d1;
+    }
+
+    .bottom-text {
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    .bottom-text a {
+      color: #0098f7 !important;
+      text-decoration: none;
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: 500;
+    }
+
+    .bottom-text a:hover {
+      text-decoration: underline;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background: #3883fc;
+      max-width: 600px;
+      height: 500px;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .btn-signup {
+      background-color: #1f6eedd8;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-signup:hover {
+      background: #1f6eed;
+    }
+
+    .signup-form {
+      text-align: left;
+    }
+
+    .signup-form label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .signup-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      width: 500px;
+      height: auto;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .loader {
+      display: none;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1f6eedd8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 15px auto 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        justify-content: center;
+        padding: 30px;
+      }
+
+      .nav-left ul {
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 10px;
+      }
+    }
+    .popup-message {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1f6eedd8;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      z-index: 9999;
+      transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      opacity: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      min-width: 300px;
+    }
+    
+    .popup-message.show {
+      top: 30px;
+      opacity: 1;
+    }
+    
+    .popup-close {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="main-bg">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">
+        <ul>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'service' %}">Services</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact Us</a></li>
+          <li><a href="{% url 'register' %}">Sign in</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Welcome Back</h2>
+        <form method="POST" action="{% url 'login' %}" onsubmit="showLoader('loader')">
+          {% csrf_token %}
+          <div class="form-group mb-3">
+            <label for="loginIdentifier">Email or Username</label>
+            <input type="text" class="form-control" id="loginIdentifier" name="identifier" placeholder="Enter your Email or Username" required>
+          </div>          
+          <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your password" name="login_pass" required>
+          </div>
+          <button type="submit" id="submitBtn" class="btn btn-login">Sign In</button>
+          <div class="loader" id="loader"></div>
+        </form><br>
+        <div class="bottom-text">
+          Don't have an account?<a onclick="openSignup()">Sign up</a>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Sign-Up Modal -->
+    <div id="signupModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeSignup()">&times;</span>
+        <h2>Create an Account</h2>
+        <form method="POST" action="{% url 'register' %}" onsubmit="showLoader('loader-signup')">
+          {% csrf_token %}
+          <div class="signup-form">
+            <div class="form-group mb-3">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="Your Username" name="username" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="signupEmail">Email</label>
+              <input type="email" class="form-control" id="signupEmail" placeholder="Your Email" name="email" required>
+            </div>
+            <div class="form-group mb-3">
+              <label for="signupPassword">Password</label>
+              <input type="password" class="form-control" id="signupPassword" placeholder="Your password" name="password" required>
+            </div>
+          </div>          
+          <button type="submit" class="btn-signup">Sign up</button>
+          <div class="loader" id="loader-signup"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const popup = document.getElementById('popup-message');
+      if (popup && popup.innerText.trim() !== '') {
+        popup.classList.add('show');
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 5000); // Hide after 5 seconds
+      }
+    });
+  
+    function closePopup() {
+      const popup = document.getElementById('popup-message');
+      popup.classList.remove('show');
+    }
+    
+    function openSignup() {
+      document.getElementById('signupModal').style.display = 'block';
+    }
+
+    function closeSignup() {
+      document.getElementById('signupModal').style.display = 'none';
+    }
+
+    function showLoader(loaderId) {
+      const loader = document.getElementById(loaderId);
+      loader.style.display = 'block';
+
+      setTimeout(function() {
+        formElement.submit(); // Manually submit the form
+      }, 8000); 
+    }
+  </script>
+  {% if messages %}
+  <div id="popup-message" class="popup-message">
+    {% for message in messages %}
+      <span>{{ message }}</span>
+    {% endfor %}
+    <span class="popup-close" onclick="closePopup()">&#10006;</span>
+  </div>
+{% endif %}
+</body>
+</html>

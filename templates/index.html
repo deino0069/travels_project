@@ -1,0 +1,580 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>AK CAB SERVICE</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+		rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/aos.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+	<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+
+
+	<link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'index' %}">AK CAB <span>SERVICE</span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+					<li class="nav-item"><a href="{% url 'service' %}" class="nav-link">Services</a></li>
+					<li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+
+					{% if user.is_authenticated %}
+					<div class="user-greeting">
+					<li>Hey, {{user.username}} </li></div>
+					<li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Log out</a></li>
+					{% else %}
+					<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Sign in</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
+	 <style>
+		.user-greeting {
+			color: rgb(255, 254, 254);
+			position: absolute; 
+			top: 21.5px;         
+			right: 50px;  
+			font-size: auto;    
+			z-index: 1000;   
+			
+		  }
+		  
+	 </style>
+		  
+	<div class="hero-wrap ftco-degree-bg" style="background-image: url({% static 'images/bg_1.jpg' %});"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+			<div class="col-lg-8 ftco-animate">
+				<div class="text w-100 text-center mb-md-5 pb-md-5">
+					<h1 class="mb-4">Fast &amp; Easy Way To travel throug a car</h1>
+					<p style="font-size: 18px;">From city tours and weekend getaways to long road trips and
+						pilgrimage journeys, we make every ride memorable. Book your ride today and experience India
+						like never before! </p>
+						<a
+						class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<span class="ion-ios-play"></span>
+						</div>
+						<div class="heading-title ml-5">
+							<span>Easy steps for booking a car</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="ftco-section ftco-no-pt bg-light">
+	<style>
+		select option {
+				color: black !important;
+			}
+		</style>
+		<div class="container">
+			<div class="row no-gutters">
+				<div class="col-md-12 featured-top">
+					<div class="row no-gutters">
+						<div class="col-md-4 d-flex align-items-center">
+							<form id="bookingForm" onsubmit="return validateMobile(event)" method="POST" class="request-form ftco-animate bg-primary">
+								<h2>Make your trip</h2>
+								{% csrf_token %}
+							  
+								<!-- Pick-up Location -->
+								<div class="form-group">
+								  <label for="pickup-location" class="label">Pick-up location</label>
+								  <select class="form-control location-dropdown" id="pickup-location" name="pickup" required
+								  style="color: black; background-color: white; border: 1px solid #ccc;">
+								  <option value="" disabled selected style="color: gray;">Select location</option>
+								  <option value="Sirsa">Sirsa</option>
+								  <option value="New Delhi">New Delhi</option>
+								  <option value="Chandigarh">Chandigarh</option>
+								  <option value="Manali">Manali</option>
+								  <option value="Shimla">Shimla</option>
+								  <option value="Amritsar">Amritsar</option>
+								  <option value="Kasol">Kasol</option>
+								  <option value="Mohali">Mohali</option>
+								  <option value="Panchkula">Panchkula</option>
+								  <option value="Zirakpur">Zirakpur</option>
+								  <option value="Fatehabad">Fatehabad</option>
+								  <option value="Bathinda">Bathinda</option>
+								  <option value="Jammu">Jammu</option>
+								  <option value="Katra">Katra</option>
+								  <option value="Dharamshala">Dharamshala</option>
+								  <option value="Mussoorie">Mussoorie</option>
+								  <option value="Nainital">Nainital</option>
+								  <option value="Ranital">Ranital</option>
+								  <option value="Jaipur">Jaipur</option>
+								  <option value="Ganganagar">Ganganagar</option>
+								  <option value="Prayagraj">Prayagraj</option>
+								  <option value="Agra">Agra (Taj Mahal)</option>
+								  <option value="Varindavan">Varindavan</option>
+								  <option value="Banarss">Banaras</option>
+								  <option value="Ayodhya">Ayodhya (Ram Mandir)</option>
+								  <option value="Salasar">Salasar</option>
+								  <option value="Khatu Shyam">Khatu Shyam</option>
+								  <option value="NainaDevi">NainaDevi</option>
+								  <!-- Airports Location -->
+								  <option value="chandigarh_airport">Shaheed bhagat singh international airport
+									  (Chandigarh)</option>
+									  <option value="newdelhi_airport">Indira gandhi international airport (New Delhi)
+									  </option>
+									  <option value="amritsar_airport">Sri Guru Ram Das Jee International Airport
+										  (Amritsar)</option>
+										  <option value="jammu_airport">satwari raipur jammu international airport (J&K)
+										  </option>
+									  </select>
+								</div>
+							  
+								<!-- Drop-off Location -->
+								<div class="form-group">
+								  <label for="dropoff-location" class="label">Drop-off location</label>
+								  <select class="form-control location-dropdown" id="dropoff-location" name="dropoff" required
+										style="color: black; background-color: white; border: 1px solid #ccc;">
+										<option value="" disabled selected style="color: gray;">Select location</option>
+										<option value="Sirsa">Sirsa</option>
+										<option value="New Delhi">New Delhi</option>
+										<option value="Chandigarh">Chandigarh</option>
+										<option value="Manali">Manali</option>
+										<option value="Shimla">Shimla</option>
+										<option value="Amritsar">Amritsar</option>
+										<option value="Kasol">Kasol</option>
+										<option value="Mohali">Mohali</option>
+										<option value="Panchkula">Panchkula</option>
+										<option value="Zirakpur">Zirakpur</option>
+										<option value="Fatehabad">Fatehabad</option>
+										<option value="Bathinda">Bathinda</option>
+										<option value="Jammu">Jammu</option>
+										<option value="Katra">Katra</option>
+										<option value="Dharamshala">Dharamshala</option>
+										<option value="Mussoorie">Mussoorie</option>
+										<option value="Nainital">Nainital</option>
+										<option value="Ranital">Ranital</option>
+										<option value="Jaipur">Jaipur</option>
+										<option value="Ganganagar">Ganganagar</option>
+										<option value="Prayagraj">Prayagraj</option>
+										<option value="Agra">Agra (Taj Mahal)</option>
+										<option value="Varindavan">Varindavan</option>
+										<option value="Banarss">Banaras</option>
+										<option value="Ayodhya">Ayodhya (Ram Mandir)</option>
+										<option value="Salasar">Salasar</option>
+										<option value="Khatu Shyam">Khatu Shyam</option>
+										<option value="NainaDevi">NainaDevi</option>
+										<!-- Airports Location -->
+										<option value="chandigarh_airport">Shaheed bhagat singh international airport
+											(Chandigarh)</option>
+											<option value="newdelhi_airport">Indira gandhi international airport (New Delhi)
+											</option>
+											<option value="amritsar_airport">Sri Guru Ram Das Jee International Airport
+												(Amritsar)</option>
+												<option value="jammu_airport">satwari raipur jammu international airport (J&K)</option>
+											</select>
+								</div>
+							  
+								<!-- Pick-up Date & Time -->
+								<div class="d-flex">
+								  <div class="form-group mr-2">
+									<label for="book_pick_date" class="label">Pick-up date</label>
+									<input type="text" class="form-control" id="book_pick_date" name="pickup_date" placeholder="Date">
+								  </div>
+								  <div class="form-group">
+									<label for="time_pick" class="label">Pick-up time</label>
+									<input type="text" class="form-control" id="time_pick" name="pickup_time" placeholder="Time">
+								  </div>
+								</div>
+							  
+								<!-- Mobile Number -->
+								<div class="form-group">
+								  <label for="contactNumber" class="label">Enter Mobile Number</label>
+								  <input type="text" class="form-control" id="contactNumber" name="number"
+									placeholder="Mobile number" pattern="\d{10}" maxlength="10" minlength="10"
+									oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+								  <small id="error-message" style="color: red; display: none;">Please enter a valid 10-digit number.</small>
+								</div>
+							  
+								<!-- Submit -->
+								<div class="form-group">
+								  <input type="submit" value="Book A Car Now" class="btn btn-secondary py-3 px-4">
+								</div>
+							  
+								<!-- Loader Spinner -->
+								<div class="loader" id="loader"></div>
+							  
+								<!-- Success Inline Message -->
+								<div id="response-message" style="margin-top: 15px;">
+								  {% if success %}
+								  <p id="success-message" style="color: rgb(9, 9, 9); font-weight: bold;">
+									Successfully booked! We will contact you soon.
+								  </p>
+								  {% endif %}
+								</div>
+							  
+								<!-- Toast Message -->
+								<div id="toast" style="
+								  position: fixed;
+								  bottom: 20px;
+								  right: 20px;
+								  z-index: 9999;
+								  display: none;
+								  padding: 15px 20px;
+								  border-radius: 8px;
+								  color: white;
+								  font-weight: bold;
+								  background-color: green;
+								  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+								  transition: opacity 0.5s ease;
+								"></div>
+							  
+								<!-- Internal CSS -->
+								<style>
+								  .loader {
+									display: none;
+									border: 6px solid #f3f3f3;
+									border-top: 6px solid #1f6eedd8;
+									border-radius: 50%;
+									width: 40px;
+									height: 40px;
+									animation: spin 1s linear infinite;
+									margin: 15px auto 0;
+								  }
+							  
+								  @keyframes spin {
+									0% {
+									  transform: rotate(0deg);
+									}
+							  
+									100% {
+									  transform: rotate(360deg);
+									}
+								  }
+
+								  .popup-message {
+									position: fixed;
+									top: -100px;
+									left: 50%;
+									transform: translateX(-50%);
+									background-color: #1f6eedd8;
+									color: white;
+									padding: 15px 30px;
+									border-radius: 8px;
+									box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+									font-size: 16px;
+									z-index: 9999;
+									transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+									opacity: 0;
+									display: flex;
+									justify-content: space-between;
+									align-items: center;
+									gap: 15px;
+									min-width: 300px;
+								  }
+								  
+								  .popup-message.show {
+									top: 30px;
+									opacity: 1;
+								  }
+								  
+								  .popup-close {
+									cursor: pointer;
+									font-weight: bold;
+									font-size: 18px;
+									color: white;
+								  }
+								  
+								</style>
+							  
+								<!-- Internal JS -->
+								<script>
+								  // Validate and handle submission
+								  function validateMobile(event) {
+									event.preventDefault();
+							  
+									const contactNumber = document.getElementById("contactNumber").value;
+									const errorMessage = document.getElementById("error-message");
+									const loader = document.getElementById("loader");
+							  
+									if (contactNumber.length !== 10) {
+									  errorMessage.style.display = "block";
+									  setTimeout(() => {
+										errorMessage.style.display = "none";
+									  }, 5000);
+									  return false;
+									}
+							  
+									loader.style.display = "block";
+							  
+									// Simulate loading time
+									setTimeout(() => {
+									  document.getElementById("bookingForm").submit();
+									}, 2000);
+							  
+									return false;
+								  }
+							  
+								  // Toast Notification
+								  function showToast(message, color = 'green') {
+									const toast = document.getElementById("toast");
+									toast.textContent = message;
+									toast.style.backgroundColor = color;
+									toast.style.display = "block";
+									toast.style.opacity = "1";
+							  
+									setTimeout(() => {
+									  toast.style.opacity = "0";
+									  setTimeout(() => {
+										toast.style.display = "none";
+									  }, 500);
+									}, 5000);
+								  }
+							  
+								  // Show toast on Django success flag
+								  window.addEventListener("DOMContentLoaded", () => {
+									const successMsg = document.getElementById("success-message");
+									if (successMsg) {
+									  showToast("Successfully booked! We will contact you soon.");
+									  setTimeout(() => {
+										successMsg.style.display = "none";
+									  }, 5000);
+									}
+								  });
+							  
+								  // Clean up URL after post
+								  window.history.replaceState({}, document.title, window.location.pathname);
+							
+									window.addEventListener('DOMContentLoaded', () => {
+									  const popup = document.getElementById('popup-message');
+									  if (popup && popup.innerText.trim() !== '') {
+										popup.classList.add('show');
+										setTimeout(() => {
+										  popup.classList.remove('show');
+										}, 5000); // Hide after 5 seconds
+									  }
+									});
+								  
+									function closePopup() {
+									  const popup = document.getElementById('popup-message');
+									  popup.classList.remove('show');
+									}
+								  
+								</script>
+							  </form>
+							  
+								
+							</div>
+							
+							<div class="col-md-8 d-flex align-items-center">
+								<div class="services-wrap rounded-right w-100">
+									<h3 class="heading-section mb-4">Better Way to Book Your Perfect Cars</h3>
+									<div class="row d-flex mb-4">
+										<div class="col-md-4 d-flex align-self-stretch ftco-animate">
+											<div class="services w-100 text-center">
+												<div class="icon d-flex align-items-center justify-content-center"><span
+													class="flaticon-route"></span></div>
+													<div class="text w-100">
+														<h3 class="heading mb-2">Choose Your Pickup Location</h3>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4 d-flex align-self-stretch ftco-animate">
+												<div class="services w-100 text-center">
+													<div class="icon d-flex align-items-center justify-content-center"><span
+														class="flaticon-handshake"></span></div>
+														<div class="text w-100">
+															<h3 class="heading mb-2">Select the Best Deal</h3>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4 d-flex align-self-stretch ftco-animate">
+													<div class="services w-100 text-center">
+														<div class="icon d-flex align-items-center justify-content-center"><span
+															class="flaticon-rent"></span></div>
+															<div class="text w-100">
+																<h3 class="heading mb-2">Reserve Your Favourite Car</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+												<p><a href="{% url 'reservation' %}" class="btn btn-primary py-3 px-4">Click here to Book a car</a></p>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					
+					<section class="ftco-section ftco-no-pt bg-light">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-md-12 heading-section text-center ftco-animate mb-5">
+									<span class="subheading">What we offer</span>
+									<h2 class="mb-2">Featured Vehicles</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="carousel-car owl-carousel">
+										{% for car in car_info %}
+										<div class="item">
+											<div class="car-wrap rounded ftco-animate">
+												<div class="img rounded d-flex align-items-end"
+												style="background-image: url({{car.car_image.url}});">
+											</div>
+											<div class="text">
+												<h2 class="mb-0">{{car.car_name}}</h2>
+												<div class="d-flex mb-3">
+													<span class="cat">{{car.car_model}}</span>
+												</div>
+												<p class="d-flex mb-0 d-block"><a href="{% url 'reservation' %}" target="_blank" class="btn btn-primary py-2 mr-1">Book
+													now</a> <a class="btn btn-secondary py-2 ml-1">Details</a></p>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					
+					
+					<footer class="ftco-footer ftco-bg-dark ftco-section">
+						<div class="container">
+						  <div class="row mb-5">
+							<div class="col-md">
+							  <div class="ftco-footer-widget mb-4">
+								<h2 class="ftco-heading-2"><a href="#" class="logo">AK CAB <span>SERVICE</span></a></h2>
+								<p>
+									Your journey, our commitment. Powered by trust and guided by experience.
+									Owned and operated by Ak services | Based in India. <br><br>
+									© 2025 AK Cab Service. All rights reserved. </p>
+								<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+								  {% for account in accounts %}
+											  {% if account.icons != 'icon icon-envelope' %}
+											  <li class="ftco-animate"><a href="{{ account.urls }}" target="_blank" rel="noopener noreferrer"><span class="{{ account.icons }}"></span></a></li>							
+											  {% endif %}
+											  {% endfor %}
+							  </div>
+							</div>
+							<div class="col-md">
+							  <div class="ftco-footer-widget mb-4 ml-md-5">
+								<h2 class="ftco-heading-2">Information</h2>
+								<ul class="list-unstyled">
+								  <li><a href="{% url 'about' %}" class="py-2 d-block">About</a></li>
+								  <li><a href="{% url 'service' %}" class="py-2 d-block">Services</a></li>
+								  
+								  <li><a class="py-2 d-block">Best Price Guarantee</a></li>
+								  <li><a class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+								</ul>
+							  </div>
+							</div>
+							<div class="col-md">
+							   <div class="ftco-footer-widget mb-4">
+								<h2 class="ftco-heading-2">Customer Support</h2>
+								<ul class="list-unstyled">
+								  <li><a class="py-2 d-block">FAQ</a></li>
+											  <li><a class="py-2 d-block">Reviews</a></li>
+											  <li><a href="#" class="py-2 d-block">Mobile app</a></li>
+											  <li><a href="{% url 'contact' %}" class="py-2 d-block">Contact Us</a></li>
+								</ul>
+							  </div>
+							</div>
+							<div class="col-md">
+							  <div class="ftco-footer-widget mb-4">
+								  <h2 class="ftco-heading-2">Have a Questions?</h2>
+								  <div class="block-23 mb-3">
+									<ul>
+									  <li><span class="icon icon-map-marker"></span><span class="text">Jhorarnali , sirsa</span></li><br>
+									  <li><span class="icon icon-phone"></span><span class="text">+91 9306881168</span></a></li><br>
+									  {% for account in accounts %}
+													  {% if account.platform == 'email' %}
+												  <li><a href="{{ account.urls }}" 	 target="_blank" rel="noopener noreferrer"><span class="{{ account.icons }}"></span><span
+															  class="text">travelsbyguru@gmail.com</span></a></li>
+													  {% endif %}	
+												  {% endfor %}
+									</ul>
+								  </div>
+							  </div>
+							</div>
+						  </div>
+						  <div class="row"></div>
+							<div class="col-md-12 text-center"></div>
+						</footer>
+								
+								
+								<!-- loader -->
+								<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+									<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4"
+									stroke="#eeeeee" />
+									<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4"
+									stroke-miterlimit="10" stroke="#F96D00" />
+								</svg></div>
+								
+								
+								<script src="{% static 'js/jquery.min.js' %}"></script>
+								<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+								<script src="{% static 'js/popper.min.js' %}"></script>
+								<script src="{% static 'js/bootstrap.min.js' %}"></script>
+								<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+								<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+								<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+								<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+								<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+								<script src="{% static 'js/aos.js' %}"></script>
+								<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+								<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+								<script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+								<script src="{% static 'js/scrollax.min.js' %}"></script>
+								<script
+						src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+					<script src="{% static 'js/google-map.js'  %}"></script>
+					<script src="{% static 'js/main.js' %}"></script>
+
+					{% if messages %}
+					<div id="popup-message" class="popup-message show">
+						{% for message in messages %}
+						<span>{{ message }}</span>
+						{% endfor %}
+						<span class="popup-close" onclick="closePopup()">&#10006;</span>
+					</div>
+					{% endif %}
+
+
+
+</body>
+</html>

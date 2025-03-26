@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AK CAB SERVICE - Booking</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .section {
+            padding: 80px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AK CAB SERVICE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- ✅ Booking Form Section -->
+    <section id="reservation" class="ftco-section bg-light py-5 section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <form class="bg-primary p-4 rounded" method="POST">
+                        <h2 class="text-white text-center mb-3">Make Your Trip</h2>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="text-white">Pick-up Location</label>
+                            <select class="form-control" name="pickup">
+                                style="color: black; background-color: white; border: 1px solid #ccc;">
+										<option value="" disabled selected style="color: gray;">Select location</option>
+										<option value="Sirsa">Sirsa</option>
+										<option value="New Delhi">New Delhi</option>
+										<option value="Chandigarh">Chandigarh</option>
+										<option value="Manali">Manali</option>
+										<option value="Shimla">Shimla</option>
+										<option value="Amritsar">Amritsar (Golden Temple)</option>
+										<option value="Kasol">Kasol</option>
+										<option value="Mohali">Mohali</option>
+										<option value="Panchkula">Panchkula</option>
+										<option value="Zirakpur">Zirakpur</option>
+										<option value="Fatehabad">Fatehabad</option>
+										<option value="Bathinda">Bathinda</option>
+										<option value="Jammu">Jammu</option>
+										<option value="Katra">Katra</option>
+										<option value="Dharamshala">Dharamshala</option>
+										<option value="Mussoorie">Mussoorie</option>
+										<option value="Nainital">Nainital</option>
+										<option value="Ranital">Ranital</option>
+										<option value="Jaipur">Jaipur</option>
+										<option value="Ganganagar">Ganganagar</option>
+										<option value="Prayagraj">Prayagraj</option>
+										<option value="Agra">Agra (Taj Mahal)</option>
+										<option value="Varindavan">Varindavan</option>
+										<option value="Banarss">Banaras</option>
+										<option value="Ayodhya">Ayodhya (Ram Mandir)</option>
+										<option value="Salasar">Salasar</option>
+										<option value="Khatu Shyam">Khatu Shyam</option>
+										<option value="NainaDevi">NainaDevi</option>
+										<!-- Airports Location -->
+										<option value="chandigarh_airport">Shaheed bhagat singh international airport
+											(Chandigarh)</option>
+										<option value="newdelhi_airport">Indira gandhi international airport (New Delhi)
+										</option>
+										<option value="amritsar_airport">Sri Guru Ram Das Jee International Airport
+											(Amritsar)</option>
+										<option value="jammu_airport">satwari raipur jammu international airport (J&K)
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="text-white">Drop-off Location</label>
+                            <select class="form-control" name="dropoff">
+                                <option value="" disabled selected style="color: gray;">Select location</option>
+                                <option value="Sirsa">Sirsa</option>
+                                <option value="New Delhi">New Delhi</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Manali">Manali</option>
+                                <option value="Shimla">Shimla</option>
+                                <option value="Amritsar">Amritsar (Golden Temple)</option>
+                                <option value="Kasol">Kasol</option>
+                                <option value="Mohali">Mohali</option>
+                                <option value="Panchkula">Panchkula</option>
+                                <option value="Zirakpur">Zirakpur</option>
+                                <option value="Fatehabad">Fatehabad</option>
+                                <option value="Bathinda">Bathinda</option>
+                                <option value="Jammu">Jammu</option>
+                                <option value="Katra">Katra</option>
+                                <option value="Dharamshala">Dharamshala</option>
+                                <option value="Mussoorie">Mussoorie</option>
+                                <option value="Nainital">Nainital</option>
+                                <option value="Ranital">Ranital</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Ganganagar">Ganganagar</option>
+                                <option value="Prayagraj">Prayagraj</option>
+                                <option value="Agra">Agra (Taj Mahal)</option>
+                                <option value="Varindavan">Varindavan</option>
+                                <option value="Banarss">Banaras</option>
+                                <option value="Ayodhya">Ayodhya (Ram Mandir)</option>
+                                <option value="Salasar">Salasar</option>
+                                <option value="Khatu Shyam">Khatu Shyam</option>
+                                <option value="NainaDevi">NainaDevi</option>
+                                <!-- Airports Location -->
+                                <option value="chandigarh_airport">Shaheed bhagat singh international airport
+                                    (Chandigarh)</option>
+                                <option value="newdelhi_airport">Indira gandhi international airport (New Delhi)
+                                </option>
+                                <option value="amritsar_airport">Sri Guru Ram Das Jee International Airport
+                                    (Amritsar)</option>
+                                <option value="jammu_airport">satwari raipur jammu international airport (J&K)
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="text-white">Pick-up Date & Time</label>
+                            <input type="date" class="form-control mb-2" name="pickup_date">
+                        
+                            <div class="d-flex">
+                                <!-- Hour Dropdown -->
+                                <select id="hourPicker" class="form-control mr-2">
+                                    <!-- JavaScript will fill this dropdown with 1-12 -->
+                                </select>
+                        
+                                <!-- AM/PM Dropdown -->
+                                <select id="ampmPicker" class="form-control">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            // Get hour picker select element
+                            const hourPicker = document.getElementById("hourPicker");
+                        
+                            // Fill dropdown with hours 1-12
+                            function generateHourOptions() {
+                                for (let i = 1; i <= 12; i++) {
+                                    let option = document.createElement("option");
+                                    option.value = i;
+                                    option.textContent = i;
+                                    hourPicker.appendChild(option);
+                                }
+                            }
+                        
+                            // Call function to populate the dropdown
+                            generateHourOptions();
+                        </script>
+                        
+
+                        <div class="form-group">
+                            <label for="contactNumber" class="text-white">Enter Mobile Number</label>
+									<input type="text" class="form-control" id="contactNumber" name="number"
+										placeholder="Mobile number" pattern="\d{10}" maxlength="10" minlength="10"
+										oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-light btn-block">Book Now</button>
+                        <div id="response-message" style="margin-top: 15px;">
+                            {% if success %}
+                            <p id="success-message" style="color: rgb(9, 9, 9); font-weight: bold;">Successfully booked! We will contact you soon.</p>
+                            {% endif %}
+                        </div>
+                        
+                        
+                        <div id="toast" style="
+                            position: fixed;
+                            top: 20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            z-index: 9999;
+                            display: none;
+                            padding: 15px 20px;
+                            border-radius: 8px;
+                            color: white;
+                            font-weight: bold;
+                            background-color: green;
+                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                            transition: opacity 0.5s ease;
+                        ">
+                        </div>
+                        <div id="page-transition" style="
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: white;
+                            z-index: 10000;
+                            opacity: 0;
+                            pointer-events: none;
+                            transition: opacity 0.8s ease;">
+                        </div>
+                        
+                        <script>
+                            function validateMobile(event) {
+                                const contactNumber = document.getElementById("contactNumber").value;
+                                const errorMessage = document.getElementById("error-message");
+                        
+                                if (contactNumber.length !== 10) {
+                                    errorMessage.style.display = "block";
+                        
+                                    setTimeout(() => {
+                                        errorMessage.style.display = "none";
+                                    }, 5000);
+                        
+                                    event.preventDefault();
+                                    return false;
+                                }
+                        
+                                return true;
+                            }
+                        
+                            function showToast(message, color = 'green') {
+                                const toast = document.getElementById("toast");
+                                toast.textContent = message;
+                                toast.style.backgroundColor = color;
+                                toast.style.display = "block";
+                                toast.style.opacity = "1";
+                        
+                                setTimeout(() => {
+                                    toast.style.opacity = "0";
+
+                                    const overlay = document.getElementById("page-transition");
+                                   overlay.style.opacity = "1";
+                                     overlay.style.pointerEvents = "auto";
+                                    setTimeout(() => {
+                                        toast.style.display = "none";
+                                        // Redirect to homepage
+                                        window.location.href = "/";
+                                    }, 500);
+                                }, 3000);
+                            }
+                        
+                            // Show toast if Django success message exists
+                            window.addEventListener("DOMContentLoaded", () => {
+                                const successMsg = document.getElementById("success-message");
+                                if (successMsg) {
+                                    showToast(successMsg.textContent.trim());
+                                    setTimeout(() => {
+                                        successMsg.style.display = "none";
+                                    }, 3000);
+                                }
+                            });
+                        
+                            // Clear form re-submission history
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        </script>
+                        
+                    </form>
+                </div>
+
+                <div class="col-md-7 d-flex align-items-center">
+                    <div>
+                        <h3 class="mb-4">A Better Way to Book Your Perfect Ride</h3>
+                        <p>We provide the best transport services to make your journey comfortable and hassle-free.</p>
+                        <a href="{% url 'contact' %}" class="btn btn-primary">contact us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-dark text-white text-center py-4">
+        <p>© 2025 Ak Cab Service | All Rights Reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("a.nav-link").on("click", function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $("html, body").animate({
+                        scrollTop: $(hash).offset().top - 70
+                    }, 800);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
