@@ -80,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'project_db',
         'USER': 'postgres',
-        'PASSWORD': '12345678',
-        'HOST': 'project-db.cbqgs60us2ga.ap-south-1.rds.amazonaws.com',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '5432',
     }
 }
@@ -138,7 +138,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'travelsbyguru@gmail.com'
-EMAIL_HOST_PASSWORD = 'mozw zwai pawk ngao'
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
