@@ -144,3 +144,6 @@ def logout(request):
     time.sleep(3)
     messages.success(request,'Logged out successfully')
     return redirect('/')
+
+def car_info(request):
+    return render(request,'car_info.html')

@@ -460,7 +460,7 @@
 													<span class="cat">{{car.car_model}}</span>
 												</div>
 												<p class="d-flex mb-0 d-block"><a href="{% url 'reservation' %}" target="_blank" class="btn btn-primary py-2 mr-1">Book
-													now</a> <a class="btn btn-secondary py-2 ml-1">Details</a></p>
+													now</a> <a href="{% url 'car_info' %}" class="btn btn-secondary py-2 ml-1">Details</a></p>
 												</div>
 											</div>
 										</div>
@@ -564,7 +564,7 @@
 						src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 					<script src="{% static 'js/google-map.js'  %}"></script>
 					<script src="{% static 'js/main.js' %}"></script>
-
+					
 					{% if messages %}
 					<div id="popup-message" class="popup-message show">
 						{% for message in messages %}
